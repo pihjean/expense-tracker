@@ -29,7 +29,10 @@ export default function Register() {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { full_name: fullName } },
+      options: {
+        data: { full_name: fullName },
+        emailRedirectTo: `${window.location.origin}/login?confirmed=true`,
+      },
     })
     setLoading(false)
 
@@ -40,7 +43,9 @@ export default function Register() {
 
     // If email confirmation is ON, there is no session yet
     if (!data.session) {
-      setMessage('Account created! Please check your email to confirm, then log in.')
+      setMessage(
+        'Account created! Please check your email and click the confirmation link. After that, you can log in.'
+      )
     }
     // If confirmation is OFF, the user is logged in and redirected automatically
   }

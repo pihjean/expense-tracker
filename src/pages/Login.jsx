@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
-export default function Login() {
+export default function Login({ confirmed }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -25,6 +25,12 @@ export default function Login() {
       <div className="auth-card">
         <h1 className="auth-title">💰 Expense Tracker</h1>
         <p className="auth-subtitle">Login to your account</p>
+
+        {confirmed && (
+          <div className="alert alert-success">
+            ✅ Your email has been confirmed! You can now log in.
+          </div>
+        )}
 
         {error && <div className="alert alert-error">{error}</div>}
 
